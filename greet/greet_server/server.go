@@ -1,6 +1,7 @@
 package main
 
 import (
+	"Grpc-routing/greet/greetpb"
 	"fmt"
 	"log"
 	"net"
@@ -19,4 +20,6 @@ func main() {
 	}
 
 	s := grpc.NewServer()
+
+	greetpb.RegisterGreetServiceServer()
 }

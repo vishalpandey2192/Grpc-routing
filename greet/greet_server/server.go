@@ -2,6 +2,7 @@ package main
 
 import (
 	"Grpc-routing/greet/greetpb"
+	"context"
 	"fmt"
 	"log"
 	"net"
@@ -9,7 +10,19 @@ import (
 	"google.golang.org/grpc"
 )
 
+//server implement the interface made in proto
 type server struct{}
+
+func (*server) Greet(ctx context.Context, req *greetpb.GreetRequest) (*greetpb.GreetResponse, error) {
+	fmt.Printf("Greet function was invoked with %v", req)
+	firstName := req.GetGreeting().GetFirstName()
+	result := "Hello" + firstName
+	res := &greetpb.GreetResponse{
+		Result: result,
+	}
+
+	return res, nil
+}
 
 func main() {
 	fmt.Println("Hello")
